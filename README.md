@@ -40,6 +40,7 @@ add authentication-types=wpa2-psk disable-pmkid=yes eap-methods="" mode=dynamic-
 ```
 Configure the wireless link.
 Since both devices support ac, we're going to fix the server to ac.
+This is the bridge.
 For this example, country is set to no country.
 Be sure to set it to your actual country.
 Installation is any. Other options are indoor and outdoor.
@@ -74,4 +75,21 @@ Change this ip address according to your home network.
 Other option is configuring a DHCP client for the **bridge**.
 ```
 /ip address add address=192.168.1.251/24 comment="Service IP" interface=bridge1 network=192.168.1.0
+```
+
+## Station bridge differences
+
+This is the station bridge.
+Channels need not be defined.
+DFS channels are skipped.
+These are the channels used by weather radars.
+Since the bridge decides the channel, this setting should be in the bridge configuration.
+```
+set [ find default-name=wlan1 ] band=5ghz-onlyac channel-width=20/40/80mhz-XXXX country=no_country_set disabled=no frequency=auto installation=\
+    any mode=station-bridge security-profile=WPA2_PSK skip-dfs-channels=all ssid=Linna wireless-protocol=802.11
+```
+Using a different ip address than the bridge
+```
+/ip address
+add address=192.168.1.252/24 comment="Service IP" interface=bridge1 network=192.168.1.0
 ```
